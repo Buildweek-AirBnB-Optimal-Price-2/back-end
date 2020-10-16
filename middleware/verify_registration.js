@@ -1,4 +1,3 @@
-const db = require("../database/dbConfig");
 const { findBy } = require("../models/index");
 
 module.exports = async (req, res, next) => {
