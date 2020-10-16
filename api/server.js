@@ -3,7 +3,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 
 // import routes
-
+const login_register = require("../routers/login_register");
+const authorized_routes = require("../routers/authorized_routes");
 
 // instantiate express
 const server = express();
@@ -13,6 +14,8 @@ server.use(cors());
 server.use(express.json());
 
 // connect routers
+server.use("/api/users", login_register);
+server.use("/api", authorized_routes);
 
 // used for test
 server.get("/", (req, res) => {
@@ -22,3 +25,6 @@ server.get("/", (req, res) => {
 });
 
 module.exports = server;
+
+// HEY. BTW, you can add optional params to url w/ "?" --> /api/:user?/:properties?
+// now, they build off of each other. So, for example, the only way to get properties is if user is given
