@@ -12,12 +12,25 @@ module.exports = (req, res, next) => {
     if (token) {
       jwt.verify(token, secret, (err, decodedToken) => {
         if (err) {
-
+          res.status(401).json({
+            err: err.message,
+            msg: "Invalid token"
+          });
+        } else {
+          req.decodedToken = decodedToken;
+          next();
         }
+      });
+    } else {
+      res.status(401).json({
+        err: err.message,
+        msg: "Please log in or register"
       })
     }
-
   } catch (err) {
-
+    res.status(500).json({
+      err: err.message,
+      msg: "Server error fulfilling request"
+    })
   }
 }

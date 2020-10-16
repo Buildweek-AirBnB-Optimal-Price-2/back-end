@@ -14,7 +14,7 @@ server.use(cors());
 server.use(express.json());
 
 // connect routers
-server.use("/api/users", login_register);
+server.use("/api/user", login_register);
 server.use("/api", authorized_routes);
 
 // used for test

@@ -1,18 +1,16 @@
 require("dotenv").config();
-const bcrypt = require("bcryptjs"); 
 const jwt = require("jsonwebtoken");
 
 module.exports = (user) => {
-  const { username, password } = user;
-
-  // we can do a db query for isRenter since username will be unique
-
+  // I believe this is all we need in the payload. 
+  // If user is not a renter, they will not be able to add properties
   const payload = {
-    username,
-    password,
+    username: user.username,
+    isRenter: user.isRenter,
    }
 
-  const secret = process.env.JWT_SECRET;
+   // .env is accessible, do I need to provide the secret?
+  const secret = process.env.JWT_SECRET || "very secret thing";
 
   const options = {
     expiresIn: "1d"
@@ -21,4 +19,4 @@ module.exports = (user) => {
   const token = jwt.sign(payload, secret, options);
 
   return token;
-}
+};
