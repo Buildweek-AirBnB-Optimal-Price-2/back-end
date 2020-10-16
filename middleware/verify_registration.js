@@ -7,8 +7,9 @@ module.exports = async (req, res, next) => {
 
   try {
     if (email && username && password) {
-        const username_exists = await findBy("user", {username});
-        const email_exists = await findBy("user", {email});
+        const [username_exists] = await findBy("user", {username});
+        console.log(username_exists);
+        const [email_exists] = await findBy("user", {email});
         if (username_exists) {
           res.status(400).json({
             msg: "Account with username already exists"

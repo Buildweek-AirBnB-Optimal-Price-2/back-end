@@ -5,6 +5,7 @@ const { add, findBy } = require("../models/index");
 // middleware
 const verify_registration = require("../middleware/verify_registration");
 const verify_login = require("../middleware/verify_login");
+// const { verify_registration, verify_login } = require("../middleware/index");
 
 // token
 const createJWT = require("../utils/createJWT");
@@ -21,7 +22,7 @@ router.post("/register", verify_registration, async (req, res, next) => {
     const token = createJWT(user);
 
     res.status(201).json({
-      data: user,
+      user: user,
       token
     });
   } catch (err) {
