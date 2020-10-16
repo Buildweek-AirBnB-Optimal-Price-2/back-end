@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
       jwt.verify(token, secret, (err, decodedToken) => {
         if (err) {
           console.log(err);
-          res.status(401).json({
+          res.status(401).json({ // should I change this to 403 - forbidden?
             err: err.message,
             msg: "Invalid token"
           });

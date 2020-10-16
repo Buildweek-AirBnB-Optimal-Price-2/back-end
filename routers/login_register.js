@@ -3,9 +3,7 @@ const router = require("express").Router();
 const { add, findBy } = require("../models/index");
 
 // middleware
-const verify_registration = require("../middleware/verify_registration");
-const verify_login = require("../middleware/verify_login");
-// const { verify_registration, verify_login } = require("../middleware/index");
+const { verify_registration, verify_login } = require("../middleware/index");
 
 // token
 const createJWT = require("../utils/createJWT");
@@ -37,12 +35,12 @@ router.post("/login", verify_login, async (req, res, next) => {
   const { username, password } = req.body;
 
   try {
-    const [user] = await findBy("user", {username});
+    const user = await findBy("user", {username});
     
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = createJWT(user);
       res.status(200).json({
-        msg: "Welcome back",
+        msg: `Welcome back ${user.username}!`,
         token: token
       });
     } else {
