@@ -1,0 +1,9 @@
+Remember to... 
+
+Test w/ migrations using knex like so:
+
+  - knex migrate:latest --env=testing
+
+Test w/ seeds using knex like so:
+
+  - knex seed:run --env=testing
