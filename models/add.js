@@ -3,7 +3,7 @@ const findById = require("./findById"); // I SPENT AT LEAST ONE HOUR FIXING THIS
 
 // this is where typescript would be nice and I could do table: String -- or something like that
 // HEY, this is supposed to be an add function where you can add ANYTHING, move delete to the registration
-// now, we have a VERY generic route for adding anything
+// now, we have a VERY generic model for adding anything
 module.exports = async (tableString, obj) => {
   try {
     // I'm not sure if this will work --> id seems very specific and I want it to work with adding anything
