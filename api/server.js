@@ -21,7 +21,7 @@ server.use("/api", authorized_routes);
 server.get("/", (req, res) => {
   console.log(req.url);
   res.status(200).json({
-    api: "Functioning properly!"
+    api: "Functioning properly!",
   });
 });
 
