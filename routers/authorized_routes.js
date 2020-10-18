@@ -1,9 +1,9 @@
 const router = require("express").Router()
 const { find, findById, } = require("../models/index");
-const verify_token = require("../middleware/verify_token");
+// const verify_token = require("../middleware/verify_token");
 
 // how do I add a query to search for addresses of properties?
-router.get("/:table/:id?", verify_token, async (req, res, next) => {
+router.get("/:table/:id?", /*verify_token, */ async (req, res, next) => {
   const { table, id } = req.params;
     
   try {
