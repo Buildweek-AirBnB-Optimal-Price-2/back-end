@@ -19,6 +19,7 @@ server.use("/api", authorized_routes);
 
 // used for test
 server.get("/", (req, res) => {
+  console.log(req.url);
   res.status(200).json({
     api: "Functioning properly!"
   });
@@ -26,5 +27,5 @@ server.get("/", (req, res) => {
 
 module.exports = server;
 
-// HEY. BTW, you can add optional params to url w/ "?" --> /api/:user?/:properties?
+// HEY. BTW, you can add optional params to url w/ "?" --> /api/:user?/:properties? --> makes it so we can have one get route
 // now, they build off of each other. So, for example, the only way to get properties is if user is given

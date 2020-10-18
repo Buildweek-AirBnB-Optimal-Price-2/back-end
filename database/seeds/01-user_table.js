@@ -6,16 +6,23 @@ exports.seed = function(knex) {
       return knex("user").insert([
         {
           id: 1, 
-          isRenter: false,
+          user_permission: 1,
           email: "user1@email.com", 
           username: "user1", 
           password: "password"
         },
         {
           id: 2, 
-          isRenter: true,
+          user_permission: 2,
           email: "renter1@email.com", 
           username: "renter1", 
+          password: "password"
+        },
+        {
+          id: 5,
+          user_permission: 3,
+          email: "admin@email.com",
+          username: "admin1",
           password: "password"
         }
       ]);

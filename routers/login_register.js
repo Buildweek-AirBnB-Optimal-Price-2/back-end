@@ -3,13 +3,13 @@ const router = require("express").Router();
 const { add, findBy } = require("../models/index");
 
 // middleware
-const { verify_registration, verify_login } = require("../middleware/index");
+const { verify_registration, verify_login, test_verification } = require("../middleware/index");
 
 // token
 const createJWT = require("../utils/createJWT");
 
 // I want middleware to verify the user's req
-router.post("/register", verify_registration, async (req, res, next) => {
+router.post("/register", test_verification, async (req, res, next) => {
   const credentials = req.body;
 
   try {
@@ -18,6 +18,8 @@ router.post("/register", verify_registration, async (req, res, next) => {
 
     const user = await add("user", credentials);
     const token = createJWT(user);
+    // this is a specific route for registering users, so it makes sense to expect a password 
+    delete user.password;
 
     res.status(201).json({
       user: user,
@@ -31,7 +33,7 @@ router.post("/register", verify_registration, async (req, res, next) => {
 });
 
 
-router.post("/login", verify_login, async (req, res, next) => {
+router.post("/login", test_verification, async (req, res, next) => {
   const { username, password } = req.body;
 
   try {

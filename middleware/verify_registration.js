@@ -2,13 +2,13 @@ const { findBy } = require("../models/index");
 
 module.exports = async (req, res, next) => {
   const {email, username, password} = req.body;
+  console.log(req.url);
 
   // perhaps could use joi to verify email is of type email?
 
   try {
     if (email && username && password) {
         const username_exists = await findBy("user", {username});
-        console.log(username_exists);
         const email_exists = await findBy("user", {email});
         if (username_exists) {
           res.status(400).json({
@@ -19,6 +19,7 @@ module.exports = async (req, res, next) => {
           res.status(400).json({
             msg: "Account with email already exists"
           });
+          // these throw errs automatically log to the console
           throw new Error("Account with email already exists")
         } else {
           next();

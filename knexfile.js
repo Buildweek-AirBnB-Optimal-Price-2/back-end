@@ -19,7 +19,8 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './database/ab&b_pricing.sqlite3'
+      // filename: './database/ab&b_pricing.sqlite3'
+      filename: "./database/abb_pricing.sqlite3"
     },
     useNullAsDefault: true,
     migrations: {
