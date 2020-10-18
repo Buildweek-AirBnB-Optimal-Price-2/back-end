@@ -60,21 +60,3 @@ module.exports = async (req, res, next) => {
     return err;
   };
 };
-
-
-// if (!email) {
-      //   res.status(400).json({
-      //     msg: "Please provide email address --> test_ver"
-      //   });
-      //   throw new Error("Please provide an email address --> test_ver")
-      // } else if (username_exists) {
-      //   res.status(400).json({
-      //     msg: "Account with username already exists --> test_ver"
-      //   });
-      //   throw new Error("Account with username already exists --> test_ver")
-      // } else if (email_exists) {
-      //   res.status(400).json({
-      //     msg: "Account with email already exists --> test ver"
-      //   });
-      //   throw new Error("Account with email already exists --> test_ver");
-      // };
