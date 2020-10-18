@@ -5,7 +5,8 @@
 // when user gives area to search (i.e. NYC, NY) they are shown google map of area and all listings, as well as a list of properties
 
 // I want renters to be able to add pictures (just like ab&b) --> apparently good idea to store that in a file on the server that is pulled down by client
-// 
+
+// check out require-directory npm module
 
 require("dotenv").config()  // I think we only need this here
 const server = require("./api/server");
