@@ -10,7 +10,7 @@ exports.up = function(knex) {
         .onUpdate("CASCADE")
         .notNullable();
       tbl
-        .string("type")
+        .integer("type")
         .references("rental_type.id")
         .onDelete("CASCADE") // since this is referencing rental_type, wouldn't that mean rental_type is the parent?
         .onUpdate("CASCADE") // will need to make sure this is the right way to do it -- tired

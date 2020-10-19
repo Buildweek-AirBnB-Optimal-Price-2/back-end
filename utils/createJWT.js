@@ -2,13 +2,14 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 module.exports = (user) => {
-  const { username, isRenter } = user;
+  const { id, username, user_permission } = user;
   // I believe this is all we need in the payload. 
   // If user is not a renter, they will not be able to add properties
   // Security risk to add password to payload
   const payload = {
+    id,
     username,
-    isRenter
+    user_permission
    }
 
    // .env is accessible, do I need to provide the secret?

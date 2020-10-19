@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
     if (token) {
       jwt.verify(token, secret, (err, decodedToken) => {
         if (err) {
-          console.log(err);
           res.status(401).json({ // should I change this to 403 - forbidden?
             err: err.message,
             msg: "Invalid token"
@@ -23,13 +22,12 @@ module.exports = (req, res, next) => {
       });
     } else {
       res.status(401).json({
+        // will also throw if the table already exists rn
         err: "Missing credentials, please log in or register"
       })
     }
   } catch (err) {
-    console.log(err)
     res.status(500).json({
-      err: err,
       msg: "Server error fulfilling request"
     })
   }

@@ -3,6 +3,7 @@ exports.seed = function(knex) {
   return knex('rental').del()
     .then(function () {
       // Inserts seed entries
+      // perhaps should add dates rented so users can specify the dates they need and only rentable properties are shown
       return knex('rental').insert([
         {
           id: 1,
@@ -11,12 +12,11 @@ exports.seed = function(knex) {
           state: "NY",
           city: "Brooklyn",
           street_address: "140 Grove St",
-          // no zip given
+          // no zip given --> we will need zip for coordinates as well as to validate existence
           rooms: 2,
           bathrooms: 1,
           guest_limit: 4,
           description: "A nice, third story apartment building with a beautiful view of the city"
-
         },
         {
           id: 2,
