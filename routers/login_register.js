@@ -10,7 +10,10 @@ const createJWT = require("../utils/createJWT");
 
 // I want middleware to verify the user's req
 router.post("/register", test_verification, async (req, res, next) => {
+  console.log("REQ BODY", req.body)
   const credentials = req.body;
+  console.log("CREDENTIALS", credentials);
+
 
   try {
     const hash = bcrypt.hashSync(credentials.password, 8);
@@ -35,6 +38,9 @@ router.post("/register", test_verification, async (req, res, next) => {
 
 router.post("/login", test_verification, async (req, res, next) => {
   const { username, password } = req.body;
+
+  console.log(req.body)
+
 
   try {
     const user = await findBy("user", {username});

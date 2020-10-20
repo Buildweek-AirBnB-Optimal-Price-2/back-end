@@ -9,8 +9,10 @@ exports.up = function(knex) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE")
         .notNullable();
+        // add "title" column
+        // add "location" column
       tbl
-        .string("type")
+        .integer("type")
         .references("rental_type.id")
         .onDelete("CASCADE") // since this is referencing rental_type, wouldn't that mean rental_type is the parent?
         .onUpdate("CASCADE") // will need to make sure this is the right way to do it -- tired
@@ -26,17 +28,18 @@ exports.up = function(knex) {
         .unique()
         .notNullable();
       tbl
-        .integer("rooms", 255)
+        .integer("rooms", 255) // change to bedrooms
         .notNullable(); // would probably be a good idea to put some kind of cap on this
       tbl
         .float("bathrooms")
         .notNullable();
       tbl
-        .integer("guest_limit", 255)
+        .integer("guest_limit", 255) // change to guests
         .notNullable(); // same^
       tbl
         .text("description")
         .notNullable();
+        // add featuredImg column
     })
 
     .createTable("amenity", tbl => {

@@ -3,8 +3,14 @@ const cors = require("cors");
 const helmet = require("helmet");
 
 // import routes
-const login_register = require("../routers/login_register");
+// const login_register = require("../routers/login_register");
+// const logi = require("../router/index") // doesn't work for some reason
+const login = require("../routers/login");
+const register = require("../routers/register");
 const authorized_routes = require("../routers/authorized_routes");
+// const {
+//   login, authorized_routes
+// } = require("../routers/index");
 
 // instantiate express
 const server = express();
@@ -14,7 +20,9 @@ server.use(cors());
 server.use(express.json());
 
 // connect routers
-server.use("/api/user", login_register);
+server.use("/register", register);
+server.use("/login", login);
+// server.use("/api/user", login_register);
 server.use("/api", authorized_routes);
 
 // used for test

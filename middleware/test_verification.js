@@ -36,6 +36,8 @@ module.exports = async (req, res, next) => {
         const username_exists = await findBy("user", {username});
         const email_exists = await findBy("user", {email});
         if (username_exists) {
+          console.log(username);
+          console.log(username_exists);
           res.status(400).json({
             msg: "Account with username already exists"
           });
