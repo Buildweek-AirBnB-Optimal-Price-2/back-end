@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const { add,  find, findBy, findById, remove } = require("../models/");
+const { add,  find, findBy, findById, update, remove } = require("../models/");
 const { check_rental_existence, verify_token } = require("../middleware");
 
 // how do I add a query to search for addresses of properties?
@@ -30,10 +30,11 @@ router.get("/:table/:key_OR_id?/:value?", verify_token, async (req, res, next) =
       // finds specified id in table
       tableData = await findById(table.toString(), key_OR_id);
     } else {
+      console.log("me")
       // finds specified table data matching specified key and value
-      [tableData] = await findBy(table.toString(), key_OR_id.toString(), value.toString()); // add errors if the request returns nothing
+      tableData = await findBy(table.toString(), key_OR_id.toString(), value.toString()); // add errors if the request returns nothing
     };
-    
+    // console.log(tableData.length);
     res.send(tableData);
 
   } catch (err) {
@@ -82,10 +83,28 @@ router.post("/:table", verify_token, check_rental_existence, async (req, res, ne
   };
 });
 
-// router.put("/:table/:id", verify_token, async (req, res, next) => {
-//   const { table, id } = req.params;
+router.put("/:table/:id", verify_token, async (req, res, next) => {
+  const { table, id } = req.params;
+  const changes = req.body;
 
-// })
+  try {
+    const exists = await findById(table.toString(), id);
+    console.log(exists);
+    if (exists) {
+      const applyChanges = await update(table.toString(), id, changes);
+      res.status(200).json(applyChanges);
+    } else {
+      res.status(400).json({
+        msg: "Idk"
+      })
+    }
+  } catch (err) {
+    res.status(500).json({
+      err: err.message,
+      msg: "There was a server error fulfilling your request"
+    })
+  };
+});
 
 router.delete("/:table/:id", verify_token, async (req, res, next) => {
   const { table, id } = req.params;
@@ -93,22 +112,20 @@ router.delete("/:table/:id", verify_token, async (req, res, next) => {
   // I need the item id, user id, and the id from the token to ensure they are allowed to act
   // const { user_permission } = req.decodedToken;
   const user_id = req.decodedToken.id;
-  console.log(user_id);
 
   // to delete, the user is requered to either be an admin or to have a matching id to the item they are trying to delete
   // const matches  = user_id === id && user_permission !== 3;
   try {
     const [itemExists]  = await findBy(table.toString(), "id", id);
-    console.log(itemExists);
     const { renter_id } = itemExists;
-    console.log(renter_id);
 
     if (itemExists) {
       // const exists = await findById(table.toString(), id);
       if (user_id === renter_id) {
         const removed = await remove(table.toString(), id);
-        res.status(200).json(removed);
-
+        res.status(200).json({
+          msg: "Item successfully deleted"
+        });
       } else {
         res.status(401).json({
           msg: "You are not authorized to delete this data"
