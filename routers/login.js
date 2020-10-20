@@ -12,7 +12,7 @@ router.post("/", test_verification, async (req, res, next) => {
   const { username, password } = req.body;
 
   try {
-    const user = await findBy("user", {username});
+    const [user] = await findBy("user", {username});
     
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = createJWT(user);

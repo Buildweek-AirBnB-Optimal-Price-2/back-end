@@ -4,7 +4,7 @@ module.exports = async (tableString, keyString, value) => {
   // would it make it easier if I converted these to strings here?
   try {
     // if value is undefined it will still work?
-    return await db(tableString).where(keyString, value).first();
+    return await db(tableString).where(keyString, value); // took off .first();
   } catch (err) {
     return false;
   };
