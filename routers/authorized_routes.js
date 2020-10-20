@@ -5,7 +5,7 @@ const { check_rental_existence, verify_token } = require("../middleware");
 // how do I add a query to search for addresses of properties?
 // rn I can't think of a use for searching by table and keyName --> UNLESS keyname(key_OR_id) could also be an id
 // to query strings, we could take a body and use that
-router.get("/:table/:key_OR_id?/:value?", verify_token, async (req, res, next) => {  // --> with this, we can just show each individual route in the documentation instead of this entire route
+router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, next) => {  // --> with this, we can just show each individual route in the documentation instead of this entire route
   
   // if no value param, key_OR_id should be an id
   const {table, key_OR_id, value} = req.params;
@@ -89,7 +89,7 @@ router.put("/:table/:id", verify_token, async (req, res, next) => {
 
   try {
     const exists = await findById(table.toString(), id);
-    console.log(exists);
+
     if (exists) {
       const applyChanges = await update(table.toString(), id, changes);
       res.status(200).json(applyChanges);
