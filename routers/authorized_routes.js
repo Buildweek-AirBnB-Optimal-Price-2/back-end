@@ -112,6 +112,7 @@ router.delete("/:table/:id", verify_token, async (req, res, next) => {
   // I need the item id, user id, and the id from the token to ensure they are allowed to act
   // const { user_permission } = req.decodedToken;
   const user_id = req.decodedToken.id;
+  const user_permission = req.decodedToken.user_permission;
 
   // to delete, the user is requered to either be an admin or to have a matching id to the item they are trying to delete
   // const matches  = user_id === id && user_permission !== 3;
@@ -121,7 +122,7 @@ router.delete("/:table/:id", verify_token, async (req, res, next) => {
 
     if (itemExists) {
       // const exists = await findById(table.toString(), id);
-      if (user_id === renter_id) {
+      if (user_id === renter_id || user_permission === 3) { // OR user_permission === 3
         const removed = await remove(table.toString(), id);
         res.status(200).json({
           msg: "Item successfully deleted"

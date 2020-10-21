@@ -19,6 +19,10 @@ module.exports = async (tableString) => {
       rental.forEach(r => {
         return r.amenity = [];
       });
+
+      // loop through each obj in arr and create a list for each rental id, adding amenity name each time rental id appears
+      // reducer callback (a, b) --> if b.rental_id === x && a.rental_id + b.rental_id
+      // separate reducers for each rental_id --> for loop for each rental id, running reducer then adding new obj to arr
       
       const amenity = await db
         .select("ra.id", /*"ra.amenity_id",*/ "ra.rental_id", "a.amenity_name")
@@ -29,7 +33,7 @@ module.exports = async (tableString) => {
       const amenitiesArr = amenity;
       console.log("WHY IS EVERY 4TH ONE MISSING", amenitiesArr);
     
-      // THIS WORKS --> make it work how it's supposed to, not this mess
+      // .for(let i = 0; i < rental )
       rental.forEach(r => {
         amenitiesArr.forEach(amenity => {
           if (r.id === amenity.rental_id) {
@@ -38,7 +42,18 @@ module.exports = async (tableString) => {
         })
       })
       console.log(rental)
+
+      rental.reduce(() => {})
+
       return rental;
+
+      // const rental_amenity = await db
+      //   .select("r.id", "r.city", "r.state", "r.city", "ra.id", "ra.rental_id", "a.amenity_name")
+      //   .from("rental_amenity as ra")
+      //   .join("amenity as a", "a.id", "=", "ra.amenity_id")
+      //   .join("rental as r", "r.id", "=", "ra.rental_id")
+        
+      // console.log(rental_amenity);
 
     } else {
       return db(tableString)
