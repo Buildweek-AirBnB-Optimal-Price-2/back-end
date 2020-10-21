@@ -6,6 +6,7 @@ const findBy = require("./findBy");
 const findById = require("./findById");
 const update = require("./update");
 const remove = require("./remove");
+const search = require("./search");
 // add something to query by address through search
 
 module.exports = {
@@ -15,4 +16,5 @@ module.exports = {
   findById,
   update,
   remove,
+  search,
 };

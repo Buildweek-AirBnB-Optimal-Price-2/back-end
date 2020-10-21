@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const { add,  find, findBy, findById, update, remove } = require("../models/");
+const { add,  find, findBy, findById, update, remove, search } = require("../models/");
 const { check_rental_existence, verify_token } = require("../middleware");
 
 // how do I add a query to search for addresses of properties?
@@ -21,8 +21,8 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
 
     // is this bad way to do this? --> we can search for absolutely anything with this
     if (searchKey && searchFor) {
-      console.log("here i am")
-      tableData = await findBy(table.toString(), searchKey.toString(), searchFor.toString());
+      // tableData = await findBy(table.toString(), searchKey.toString(), searchFor.toString());
+      tableData = await search(table.toString(), searchKey.toString(), searchFor.toString());
     } else if (!key_OR_id && !value) {
       // finds all table data
       tableData = await find(table.toString())
@@ -148,18 +148,3 @@ router.delete("/:table/:id", verify_token, async (req, res, next) => {
 
 
 module.exports = router;
-
-
-    // const { table, id } = req.params;
-
-    // let user;
-
-    // tableData = await findBy(table.toString(), keyName.toString(), value);
-
-    // id ?
-    // console.log(id)
-    //   // user = await findById(table.toString(), id)
-    // : user = await find(table.toString());
-
-    // if res.status defaults to 200 on a get req, do I really need to add it manually?
-    // res.send(user);
