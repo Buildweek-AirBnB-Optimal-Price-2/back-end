@@ -18,6 +18,10 @@ exports.seed = function(knex) {
           amenity_name: "TV"
         },
         {
+          id: 4,
+          amenity_name: "Private Entrance"
+        },
+        {
           id: 5,
           amenity_name: "Heat"
         },
@@ -52,10 +56,6 @@ exports.seed = function(knex) {
         {
           id: 13,
           amenity_name: "Closet/drawers"
-        },
-        {
-          id: 14,
-          amenity_name: "Private entrance"
         },
       ]);
     });

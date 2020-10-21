@@ -26,6 +26,11 @@ exports.seed = function(knex) {
           rental_id: 1
         },
         {
+          id: 17,
+          amenity_id: 5,
+          rental_id: 1
+        },
+        {
           id: 5,
           amenity_id: 1,
           rental_id: 2
