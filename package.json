@@ -4,6 +4,7 @@
   "description": "https://docs.google.com/document/d/1eFPrP1q7_d_iV3ccoQJZMibJsHPDrvcUDZOMQSGd9Hw/edit#heading=h.5wrchq1c906d",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
@@ -14,6 +15,7 @@
     "knex": "^0.21.6",
     "knex-cleaner": "^1.3.1",
     "objection": "^2.2.3",
+    "react-geocode": "^0.2.2",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {

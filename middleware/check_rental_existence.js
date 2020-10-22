@@ -20,6 +20,7 @@ module.exports = async (req, res, next) => { // of course, I could check the rou
       });
     };
   } catch (err) {
+    console.log(err);
     res.status(400).json({
       msg: "Please provide required paramters"
     })
