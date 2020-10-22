@@ -1,9 +1,21 @@
 const router = require("express").Router()
 const { add,  find, findBy, findById, update, remove, search } = require("../models/");
 const { check_rental_existence, verify_token } = require("../middleware");
+const {default: Geocode} = require("react-geocode");
+const { default: Axios } = require("axios");
+
+
+// GOOGLE API KEY: // AIzaSyBm178Zk47K2cVPIOZtoDLsvA4o2PebdIs
+
+// this is the old key
+// const API_KEY = "AIzaSyBm178Zk47K2cVPIOZtoDLsvA4o2PebdIs";
+
+// new key
+const API_KEY = "AIzaSyC4jA73EEKYRLSeEsyU-iwCsaISbiGEVhs";
+
 
 // how do I add a query to search for addresses of properties?
-// rn I can't think of a use for searching by table and keyName --> UNLESS keyname(key_OR_id) could also be an id
+// rn I can't think of a use for searching by table an;d keyName --> UNLESS keyname(key_OR_id) could also be an id
 // to query strings, we could take a body and use that
 router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, next) => {  // --> with this, we can just show each individual route in the documentation instead of this entire route
   
@@ -30,6 +42,31 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
       tableData = await findBy(table.toString(), key_OR_id.toString(), value.toString()); // add errors if the request returns nothing
     };
 
+    // console.log(tableData);
+    
+    // let lat_long = {};
+
+    // Axios
+    //   .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${tableData.street_address}+${tableData.city}+${tableData.state}&key=${API_KEY}`)
+    //   .then((res) => {
+
+    //     lat_long = res;
+    //     console.log(lat_long)
+
+    //   }).catch((err) => {
+    //     console.log(err)
+    //   });
+
+    // Geocode.fromAddress(`${tableData.street_address}`, "AIzaSyBm178Zk47K2cVPIOZtoDLsvA4o2PebdIs",).then(
+    //   response => {
+    //     const { lat, lng } = response.results[0].geometry.location;
+    //     console.log(lat, lng);
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   }
+    // )
+
     res.send(tableData);
 
   } catch (err) {
@@ -40,7 +77,7 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
   };
 });
 
-router.post("/:table", verify_token, check_rental_existence, async (req, res, next) => { // also need a verify permission
+router.post("/:table", verify_token, /*check_rental_existence,*/ async (req, res, next) => { // also need a verify permission
   
   // only want renters to be able to add to the rental table, admins can add to anything, middleware would be good for this reason
   // additionally, we need to check that the rental does not already exist
@@ -50,7 +87,7 @@ router.post("/:table", verify_token, check_rental_existence, async (req, res, ne
   const newRental = req.body;
   const permitted = user_permission === 2 || user_permission === 3;
   // const permitted = user_permission => user_permission === 2 || user_permission === 3; // unrelated to this, but how could I prevent a user from signing up as an admin?
-
+  console.log(user_permission);
   try {
 
     if (permitted) {
