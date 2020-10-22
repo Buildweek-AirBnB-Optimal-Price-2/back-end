@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const { add,  find, findBy, findById, update, remove, search } = require("../models/");
 const { check_rental_existence, verify_token } = require("../middleware");
-const {default: Geocode} = require("react-geocode");
+const {default: Geocode, enableDebug} = require("react-geocode");
 const { default: Axios } = require("axios");
 
 
@@ -63,7 +63,7 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
     //     console.log(lat, lng);
     //   },
     //   error => {
-    //     console.log(error);
+
     //   }
     // )
 
@@ -143,13 +143,15 @@ router.delete("/:table/:id", verify_token, async (req, res, next) => {
   // if user is deleting a rental, their id needs to match renter_id
   // I need the item id, user id, and the id from the token to ensure they are allowed to act
   // const { user_permission } = req.decodedToken;
+  console.log(req.decodedToken);
   const user_id = req.decodedToken.id;
   const user_permission = req.decodedToken.user_permission;
 
   // to delete, the user is requered to either be an admin or to have a matching id to the item they are trying to delete
   // const matches  = user_id === id && user_permission !== 3;
   try {
-    const [itemExists]  = await findBy(table.toString(), "id", id);
+    const itemExists  = await findBy(table.toString(), "id", id);
+    console.log(itemExists);
     const { renter_id } = itemExists;
 
     if (itemExists) {
