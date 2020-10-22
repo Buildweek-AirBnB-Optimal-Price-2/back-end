@@ -9,7 +9,7 @@ exports.seed = function(knex) {
           id: 1,
           renter_id: 2,
           title: "Luxurious apartment, great location",
-          location: "Brooklyn Brdige",
+          location: "Brooklyn Bridge",
           type: 1,
           country: "USA",
           state: "NY",
@@ -19,7 +19,6 @@ exports.seed = function(knex) {
           bedrooms: 2,
           beds: 2,
           baths: 1,
-          // no zip given --> we will need zip for coordinates as well as to validate existence
           guests: 4,
           description: "A nice, third story apartment building with a beautiful view of the city",
           featuredImg: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.LPQ86MK4lwyIVWaclZouOQHaE7%26pid%3DApi&f=1",

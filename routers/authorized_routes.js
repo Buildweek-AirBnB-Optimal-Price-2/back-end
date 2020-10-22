@@ -11,7 +11,7 @@ const { default: Axios } = require("axios");
 // const API_KEY = "AIzaSyBm178Zk47K2cVPIOZtoDLsvA4o2PebdIs";
 
 // new key
-const API_KEY = "AIzaSyC4jA73EEKYRLSeEsyU-iwCsaISbiGEVhs";
+const API_KEY = "AIzaSyDIy0LNbmNJvcSJ2u1CMglEpGTA4yqYHlY";
 
 
 // how do I add a query to search for addresses of properties?
@@ -50,8 +50,20 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
     //   .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${tableData.street_address}+${tableData.city}+${tableData.state}&key=${API_KEY}`)
     //   .then((res) => {
 
-    //     lat_long = res;
-    //     console.log(lat_long)
+    //     const lat = res.data.results[0].geometry.location.lat;
+    //     const lng = res.data.results[0].geometry.location.lng;
+    //     // const neighborhood_group = res.data.results[0].address_components[2].long_name;
+    //     const neighborhood_group = (res.data.results[0].address_components[3].long_name);
+    //     let room_type = tableData.type
+    //     room_type === "Apartment" ? room_type = "Entire home/apt" : room_type;
+
+    //     const lat_lng = {
+    //       lat: lat,
+    //       lng: lng,
+    //       neighborhood_group: neighborhood_group,
+    //       room_type: room_type
+    //     }
+    //     console.log(lat_lng);
 
     //   }).catch((err) => {
     //     console.log(err)
