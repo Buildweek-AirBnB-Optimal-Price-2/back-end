@@ -4,6 +4,9 @@ exports.up = function(knex) {
       tbl.increments("id");
       // tbl.boolean("isRenter").defaultTo("false");
       tbl
+        .string("name", 255)
+        .notNullable();
+      tbl
         .integer("user_permission") // should I make this the string val? no, when registering, it's easier to use an int --> less possibility of a misspelling err(?)
         .defaultTo(3)
         .unsigned()
