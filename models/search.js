@@ -12,3 +12,11 @@ module.exports = async (tableString, keyString, value) => {
       return false;
   };
 };
+
+/* 
+TODO
+
+  1. Add conversion from address to long/lat
+  2. If user doesn't supply zip code, I could search address and apply it myself?
+
+*/

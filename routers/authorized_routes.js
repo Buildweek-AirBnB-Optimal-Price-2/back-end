@@ -21,20 +21,15 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
 
     // is this bad way to do this? --> we can search for absolutely anything with this
     if (searchKey && searchFor) {
-      // tableData = await findBy(table.toString(), searchKey.toString(), searchFor.toString());
       tableData = await search(table.toString(), searchKey.toString(), searchFor.toString());
     } else if (!key_OR_id && !value) {
-      // finds all table data
       tableData = await find(table.toString())
     } else if (!value) {
-      // finds specified id in table
       tableData = await findById(table.toString(), key_OR_id);
     } else {
-      console.log("me")
-      // finds specified table data matching specified key and value
       tableData = await findBy(table.toString(), key_OR_id.toString(), value.toString()); // add errors if the request returns nothing
     };
-    // console.log(tableData.length);
+
     res.send(tableData);
 
   } catch (err) {

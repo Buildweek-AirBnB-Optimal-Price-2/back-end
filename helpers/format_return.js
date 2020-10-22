@@ -8,7 +8,6 @@ module.exports = async (tableString, keyString, value) => {
     if (keyString && value) {
       rental = await db(tableString).where(keyString, value);
     } else if (keyString && !value) {
-      console.log("I'm being hit")
       rental = await db(tableString).where("id", keyString);
     } else {
       rental = await db(tableString);
@@ -43,7 +42,6 @@ module.exports = async (tableString, keyString, value) => {
         };
       })
     });
-    console.log(rental.length);
 
     return rental.length > 1 ? rental : rental[0];
 
