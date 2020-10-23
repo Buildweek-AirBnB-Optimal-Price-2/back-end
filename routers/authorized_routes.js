@@ -46,38 +46,28 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
     
     // let lat_long = {};
 
-    // Axios
-    //   .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${tableData.street_address}+${tableData.city}+${tableData.state}&key=${API_KEY}`)
-    //   .then((res) => {
+    Axios
+      .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${tableData.street_address}+${tableData.city}+${tableData.state}&key=${API_KEY}`)
+      .then((res) => {
 
-    //     const lat = res.data.results[0].geometry.location.lat;
-    //     const lng = res.data.results[0].geometry.location.lng;
-    //     // const neighborhood_group = res.data.results[0].address_components[2].long_name;
-    //     const neighborhood_group = (res.data.results[0].address_components[3].long_name);
-    //     let room_type = tableData.type
-    //     room_type === "Apartment" ? room_type = "Entire home/apt" : room_type;
+        const lat = res.data.results[0].geometry.location.lat;
+        const lng = res.data.results[0].geometry.location.lng;
+        // const neighborhood_group = res.data.results[0].address_components[2].long_name;
+        const neighborhood_group = (res.data.results[0].address_components[3].long_name);
+        let room_type = tableData.type
+        room_type === "Apartment" ? room_type = "Entire home/apt" : room_type;
 
-    //     const lat_lng = {
-    //       lat: lat,
-    //       lng: lng,
-    //       neighborhood_group: neighborhood_group,
-    //       room_type: room_type
-    //     }
-    //     console.log(lat_lng);
+        const lat_lng = {
+          lat: lat,
+          lng: lng,
+          neighborhood_group: neighborhood_group,
+          room_type: room_type
+        }
+        console.log(lat_lng);
 
-    //   }).catch((err) => {
-    //     console.log(err)
-    //   });
-
-    // Geocode.fromAddress(`${tableData.street_address}`, "AIzaSyBm178Zk47K2cVPIOZtoDLsvA4o2PebdIs",).then(
-    //   response => {
-    //     const { lat, lng } = response.results[0].geometry.location;
-    //     console.log(lat, lng);
-    //   },
-    //   error => {
-
-    //   }
-    // )
+      }).catch((err) => {
+        console.log(err)
+      });
 
     res.send(tableData);
 
@@ -89,7 +79,7 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
   };
 });
 
-router.post("/:table", verify_token, /*check_rental_existence,*/ async (req, res, next) => { // also need a verify permission
+router.post("/:table", verify_token, check_rental_existence, async (req, res, next) => { // also need a verify permission
   
   // only want renters to be able to add to the rental table, admins can add to anything, middleware would be good for this reason
   // additionally, we need to check that the rental does not already exist
@@ -185,6 +175,7 @@ router.delete("/:table/:id", verify_token, async (req, res, next) => {
     }
 
   } catch (err) {
+    // err being thrown when I delete item at index 1
     res.status(500).json({
       err: err.message,
       msg: "There was a server error fulfilling your request"
