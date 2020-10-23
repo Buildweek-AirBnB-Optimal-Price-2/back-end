@@ -18,7 +18,7 @@ module.exports = async (tableString, obj) => {
     return addedObj;
   } catch (err) {
     console.log("ADD ERR: ", err);
-    return false
-    // throw err;
+    // return false
+    throw err;
   };
 };
