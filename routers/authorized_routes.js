@@ -46,28 +46,28 @@ router.get("/:table/:key_OR_id?/:value?", /*verify_token,*/ async (req, res, nex
     
     // let lat_long = {};
 
-    Axios
-      .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${tableData.street_address}+${tableData.city}+${tableData.state}&key=${API_KEY}`)
-      .then((res) => {
+    // Axios
+    //   .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${tableData.street_address}+${tableData.city}+${tableData.state}&key=${API_KEY}`)
+    //   .then((res) => {
 
-        const lat = res.data.results[0].geometry.location.lat;
-        const lng = res.data.results[0].geometry.location.lng;
-        // const neighborhood_group = res.data.results[0].address_components[2].long_name;
-        const neighborhood_group = (res.data.results[0].address_components[3].long_name);
-        let room_type = tableData.type
-        room_type === "Apartment" ? room_type = "Entire home/apt" : room_type;
+    //     const {lat, lng} = res.data.results[0].geometry.location;
+    //     // const lng = res.data.results[0].geometry.location.lng;
+    //     // const neighborhood_group = res.data.results[0].address_components[2].long_name;
+    //     const neighborhood_group = (res.data.results[0].address_components[3].long_name);
+    //     let room_type = tableData.type
+    //     room_type === "Apartment" ? room_type = "Entire home/apt" : room_type;
 
-        const lat_lng = {
-          lat: lat,
-          lng: lng,
-          neighborhood_group: neighborhood_group,
-          room_type: room_type
-        }
-        console.log(lat_lng);
+    //     const lat_lng = {
+    //       lat: lat,
+    //       lng: lng,
+    //       neighborhood_group: neighborhood_group,
+    //       room_type: room_type
+    //     }
+    //     console.log(lat_lng);
 
-      }).catch((err) => {
-        console.log(err)
-      });
+    //   }).catch((err) => {
+    //     console.log(err)
+    //   });
 
     res.send(tableData);
 

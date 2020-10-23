@@ -19,7 +19,6 @@ server.use("/api", authorized_routes);
 
 // used for test
 server.get("/", (req, res) => {
-  console.log(req.url);
   res.status(200).json({
     api: "Functioning properly!",
   });
