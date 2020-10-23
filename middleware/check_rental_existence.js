@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => { // of course, I could check the rou
     const { table } = req.params;
     const { street_address } = req.body;
     // how could I pull the necessary key ("street_address")
-    const [exists] = await findBy(table.toString(), "street_address", street_address.toString());
+    const exists = await findBy(table.toString(), "street_address", street_address.toString());
 
     if (!exists) {
       next();
