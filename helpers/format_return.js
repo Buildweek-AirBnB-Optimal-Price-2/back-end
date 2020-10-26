@@ -1,5 +1,6 @@
 const db = require("../database/dbConfig");
 
+// formats what the client recieves so that type is given as a string rather than a number and attaches amenity array
 module.exports = async (tableString, keyString, value) => {
   
   try {
@@ -13,12 +14,14 @@ module.exports = async (tableString, keyString, value) => {
       rental = await db(tableString);
     }
 
+    // add amenity array w/ key amenity to each rental object
     rental.forEach(r => {
       return r.amenity = [];
     });
   
     const typeArr = await db("rental_type");
   
+    // translates type of each rental from int to string --> need to add a helpter in add that will translate it back
     rental.forEach(r => {
       typeArr.forEach(t => {
         if (r.type === t.id) {
@@ -34,6 +37,7 @@ module.exports = async (tableString, keyString, value) => {
 
     const amenityArr = amenity;
   
+    // adds amenity information to each rental 
     rental.forEach(r => {
       amenityArr.forEach(amenity => {
         if (r.id === amenity.rental_id) {

@@ -3,12 +3,12 @@ const router = require("express").Router();
 const { findBy } = require("../models/index");
 
 // middleware
-const { test_verification } = require("../middleware/index");
+const { verify_login_register } = require("../middleware/index");
 
 // token
 const createJWT = require("../utils/createJWT");
 
-router.post("/", test_verification, async (req, res, next) => {
+router.post("/", verify_login_register, async (req, res, next) => {
   const { username, password } = req.body;
 
   try {
