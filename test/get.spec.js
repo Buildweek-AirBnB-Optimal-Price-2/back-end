@@ -1,9 +1,26 @@
+const { response } = require("express");
 const request = require("supertest");
 const server = require("../api/server.js");
+const db = require("../database/dbConfig");
+
+beforeAll(async (done) => {
+  await db.seed.run()
+  // await db("rental").truncate()
+    // .then(async () => {
+    //   await db.migrate.latest();
+    //   await db.seed.run();
+
+    // })
+
+  done();
+})
 
 describe("GET .../api/:table", () => {
-
-  // const response = request(server).get("/api/rental");
+  beforeEach(async (done) => {
+    await db.migrate.latest();
+    await db.seed.run();
+    done();
+  })
   
   it("should return a status of 200", async () => {
     
@@ -18,10 +35,10 @@ describe("GET .../api/:table", () => {
     expect(Array.isArray(response.body)).toEqual(true);
   })
   
-  it("should return array with length 5", async () => {
+  it("should return array with length 5 or greater", async () => {
     const response = await request(server).get("/api/rental");
-    expect(response.body.length).toEqual(5);
-  })
+    expect(response.body.length === 5).toEqual(true);
+  });
 });
 
 describe("GET .../api/:table/id", () => {
@@ -56,3 +73,4 @@ describe("GET .../:table/:key/:value", () => {
     expect(typeof response.body).toEqual("object");
   });
 });
+

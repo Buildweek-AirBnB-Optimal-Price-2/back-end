@@ -1,9 +1,9 @@
 const verify_token = require("./verify_token");
-const test_verification = require("./test_verification");
+const verify_login_register = require("./verify_login_register");
 const check_rental_existence = require("./check_rental_existence");
 
 module.exports = {
   verify_token,
-  test_verification,
+  verify_login_register,
   check_rental_existence
 };

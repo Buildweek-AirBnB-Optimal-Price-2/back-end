@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const { add,  find, findBy, findById, update, remove, search } = require("../models/");
 const { check_rental_existence, verify_token } = require("../middleware");
-const {default: Geocode, enableDebug} = require("react-geocode");
+// const {default: Geocode, enableDebug} = require("react-geocode"); --> keep this module in mind for yourself, don't have to pay google :P
 const { default: Axios } = require("axios");
 
 
@@ -89,7 +89,6 @@ router.post("/:table", verify_token, check_rental_existence, async (req, res, ne
   const newRental = req.body;
   const permitted = user_permission === 2 || user_permission === 3;
   // const permitted = user_permission => user_permission === 2 || user_permission === 3; // unrelated to this, but how could I prevent a user from signing up as an admin?
-  console.log(user_permission);
   try {
 
     if (permitted) {
